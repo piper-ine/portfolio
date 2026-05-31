@@ -10,8 +10,9 @@ import {
 import type { IconType } from 'react-icons';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-gsap.registerPlugin(useGSAP);
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 type NavItem = {
     text: string;
@@ -96,8 +97,57 @@ const Header = () => {
         );
     }, { scope: headerRef, dependencies: [isMenuOpen] });
 
+    useGSAP(() => {
+        let isHidden = false;
+
+        const showHeader = () => {
+            if (!headerRef.current || !isHidden) {
+                return;
+            }
+
+            isHidden = false;
+            gsap.to(headerRef.current, {
+                autoAlpha: 1,
+                duration: 0.28,
+                ease: 'power2.out',
+                overwrite: 'auto',
+                yPercent: 0,
+            });
+        };
+
+        const hideHeader = () => {
+            if (!headerRef.current || isHidden || isMenuOpen) {
+                return;
+            }
+
+            isHidden = true;
+            gsap.to(headerRef.current, {
+                autoAlpha: 0,
+                duration: 0.28,
+                ease: 'power2.out',
+                overwrite: 'auto',
+                yPercent: -120,
+            });
+        };
+
+        const trigger = ScrollTrigger.create({
+            end: 'max',
+            onUpdate: (self) => {
+                if (self.scroll() <= 24 || self.direction === -1) {
+                    showHeader();
+                    return;
+                }
+
+                hideHeader();
+            },
+            start: 0,
+        });
+
+        return () => trigger.kill();
+    }, { dependencies: [isMenuOpen] });
+
     return (
-        <header ref={headerRef} className='shrink-0 py-4 text-primary-light sm:py-5' id='header'>
+        <header ref={headerRef} className='sticky top-0 z-50 shrink-0 py-4 text-primary-light sm:py-5' id='header'>
             <div className='header-shell flex items-center justify-between gap-4 section-base'>
                 <a
                     href='#'

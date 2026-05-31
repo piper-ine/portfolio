@@ -5,8 +5,8 @@ import TechSection from "./components/TechSection";
 const App = () => {
   return (
     <div className="wrapper">
-      <div className="flex min-h-dvh flex-col">
-        <Header />
+      <Header />
+      <div className="flex min-h-[calc(100dvh-6rem)] flex-col sm:min-h-[calc(100dvh-6.625rem)]">
         <Hero />
       </div>
       <TechSection />
