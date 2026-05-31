@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 1rem;
+    }
+}
+
+@layer components {
+    .wrapper {
+        @apply mx-auto flex min-h-dvh w-full max-w-7xl flex-col px-4 sm:px-6 lg:px-8;
+    }
+    .adaptive-text-base{
+        @apply text-sm md:text-base lg:text-xl
+    }
+    .adaptive-text-header{
+        @apply text-lg md:text-xl lg:text-2xl
+    }
+    .section-base{
+        @apply border-secondary bg-primary-dark/95 rounded-xl border px-4 py-3
+    }
+}
+
+@theme {
+  --color-primary-light: #FFFFFF;
+  --color-primary-dark:  #0A0A0A;
+  --color-secondary:     #1A1A1A;
+
+  --color-accent:        #B0E860;
+  --color-accent-hover:  #8FD130;
+  --color-accent-soft:   #1C2E06;
+}
