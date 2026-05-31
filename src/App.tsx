@@ -1,5 +1,6 @@
 import Header from "./components/Header";
 import Hero from "./components/Hero";
+import ProjectsSection from "./components/ProjectsSection";
 import TechSection from "./components/TechSection";
 
 const App = () => {
@@ -10,6 +11,7 @@ const App = () => {
         <Hero />
       </div>
       <TechSection />
+      <ProjectsSection />
     </div>
   );
 }

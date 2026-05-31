@@ -14,7 +14,9 @@ import {
     SiTailwindcss,
     SiTelegram,
     SiTypescript,
+    SiVercel,
 } from 'react-icons/si';
+
 import { HiCommandLine, HiServerStack, HiSparkles, HiWrenchScrewdriver } from 'react-icons/hi2';
 import TechCard, { type Tech } from './TechCard';
 
@@ -57,6 +59,7 @@ const techGroups: TechGroup[] = [
             { name: 'Git', Icon: SiGit, level: 82 },
             { name: 'AI tools', Icon: HiSparkles, level: 86 },
             { name: 'Figma', Icon: SiFigma, level: 70 },
+            { name: 'Vercel', Icon: SiVercel, level: 50 },
         ],
     },
 ];
