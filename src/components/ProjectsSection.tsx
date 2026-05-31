@@ -14,7 +14,7 @@ const projects = [
         className: 'lg:col-span-2',
         src: '/project-1.png',
         href: "https://awward-web.vercel.app/",
-        githubHref: "https://github.com/"
+        githubHref: "https://github.com/piper-ine/awward-web"
     },
     {
         title: 'Kanban manager',
@@ -22,7 +22,7 @@ const projects = [
         technologies: ['React', 'dnd', 'drag-and-drop', "Localhost"],
         src: '/project-2.png',
         href: "https://kanban-manager-ls.vercel.app/",
-        githubHref: "https://github.com/"
+        githubHref: "https://github.com/piper-ine/kanban-manager-LS-"
     },
     {
         title: 'VIN-decoder demo',
@@ -30,7 +30,7 @@ const projects = [
         technologies: ['Next.js', 'Tailwind', 'API', "Castom-hooks", "Async-fetch"],
         src: '/project-3.png',
         href: "https://vin-decoder-demo-ruddy.vercel.app/",
-        githubHref: "https://github.com/"
+        githubHref: "https://github.com/piper-ine/vin-decoder-demo"
     },
     {
         title: 'Exchange Rate',
@@ -39,7 +39,7 @@ const projects = [
         className: 'lg:col-span-2',
         src: '/project-4.png',
         href: "https://exchange-frankfurter.vercel.app/",
-        githubHref: "https://github.com/"
+        githubHref: "https://github.com/piper-ine/Exchange-Frankfurter"
     },
 ];
 
@@ -105,8 +105,8 @@ const ProjectsSection = () => {
                 </div>
 
                 <div className='mt-10 grid auto-rows-fr gap-4 lg:grid-cols-3'>
-                    {projects.map((project) => (
-                        <div key={project.title} className='project-card'>
+                    {projects.map(({ className, ...project }) => (
+                        <div key={project.title} className={`project-card ${className ?? ''}`}>
                             <ProjectCard {...project} />
                         </div>
                     ))}

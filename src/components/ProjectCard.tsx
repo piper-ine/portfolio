@@ -22,9 +22,9 @@ const ProjectCard = ({
 }: ProjectCardProps) => {
     return (
         <article
-            className={`group flex min-h-[26rem] flex-col overflow-hidden rounded-xl border border-secondary bg-primary-dark/80 transition-colors hover:border-accent/50 ${className}`}
+            className={`group flex h-full min-h-[26rem] flex-col overflow-hidden rounded-xl border border-secondary bg-primary-dark/80 transition-colors hover:border-accent/50 ${className}`}
         >
-            <div className='project-image-wrap relative h-1/2 min-h-52 w-full overflow-hidden border-b border-secondary bg-secondary/60'>
+            <div className='project-image-wrap relative min-h-52 basis-1/2 overflow-hidden border-b border-secondary bg-secondary/60'>
                 <div className='absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(176,232,96,0.16),transparent_36%)] opacity-70 transition-opacity group-hover:opacity-100' />
                 <img
                     src={src}
@@ -35,7 +35,7 @@ const ProjectCard = ({
 
             <div className='flex flex-1 flex-col p-5 sm:p-6'>
                 <h3 className='project-card-content text-xl font-semibold text-primary-light sm:text-2xl'>{title}</h3>
-                <p className='project-card-content mt-3 max-w-2xl text-sm leading-6 text-primary-light/60'>{description}</p>
+                <p className='project-card-content mt-3 line-clamp-3 max-w-2xl text-sm leading-6 text-primary-light/60'>{description}</p>
 
                 <div className='mt-auto pt-6'>
                     <div className='flex flex-wrap gap-2'>

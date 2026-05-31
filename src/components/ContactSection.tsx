@@ -1,12 +1,14 @@
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useRef } from 'react';
+import { type FormEvent, useRef, useState } from 'react';
 import { FaGithub, FaLinkedinIn, FaTelegram } from 'react-icons/fa6';
 import { HiEnvelope } from 'react-icons/hi2';
 import type { IconType } from 'react-icons';
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
+
+type SubmitStatus = 'idle' | 'submitting' | 'success' | 'error';
 
 type ContactLink = {
     label: string;
@@ -19,31 +21,82 @@ const contactLinks: ContactLink[] = [
     {
         label: 'GitHub',
         description: 'Code and repositories',
-        href: 'https://github.com/',
+        href: 'https://github.com/piper-ine',
         Icon: FaGithub,
     },
     {
         label: 'Telegram',
         description: 'Fast direct messages',
-        href: 'https://t.me/',
+        href: 'https://t.me/curacao46',
         Icon: FaTelegram,
     },
     {
         label: 'Email',
         description: 'Project details and offers',
-        href: 'mailto:hello@example.com',
+        href: 'mailto:ernurdenasan@gmail.com',
         Icon: HiEnvelope,
     },
     {
         label: 'LinkedIn',
         description: 'Professional profile',
-        href: 'https://www.linkedin.com/',
+        href: 'https://www.linkedin.com/in/nasan-yernur-401720365/',
         Icon: FaLinkedinIn,
     },
 ];
 
 const ContactSection = () => {
     const sectionRef = useRef<HTMLElement>(null);
+    const [submitStatus, setSubmitStatus] = useState<SubmitStatus>('idle');
+    const [submitMessage, setSubmitMessage] = useState('');
+
+    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+
+        const accessKey = import.meta.env.WEB3FORM_KEY;
+        const form = event.currentTarget;
+
+        if (!accessKey) {
+            setSubmitStatus('error');
+            setSubmitMessage('Form API key is missing. Please try another contact link.');
+            return;
+        }
+
+        setSubmitStatus('submitting');
+        setSubmitMessage('');
+
+        const formData = new FormData(form);
+        const payload = {
+            access_key: accessKey,
+            contact: String(formData.get('contact') ?? ''),
+            message: String(formData.get('message') ?? ''),
+            name: String(formData.get('name') ?? ''),
+            subject: 'New portfolio contact message',
+        };
+
+        try {
+            const response = await fetch('https://api.web3forms.com/submit', {
+                body: JSON.stringify(payload),
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                method: 'POST',
+            });
+
+            const result = await response.json();
+
+            if (!response.ok || !result.success) {
+                throw new Error(result.message ?? 'Message was not sent.');
+            }
+
+            form.reset();
+            setSubmitStatus('success');
+            setSubmitMessage('Message sent successfully. I will reply soon.');
+        } catch (error) {
+            setSubmitStatus('error');
+            setSubmitMessage(error instanceof Error ? error.message : 'Something went wrong. Please try again.');
+        }
+    };
 
     useGSAP(() => {
         gsap.set('.contact-panel', {
@@ -137,12 +190,13 @@ const ContactSection = () => {
                         </div>
                     </div>
 
-                    <form className='rounded-xl border border-secondary bg-primary-dark/80 p-5 sm:p-6'>
+                    <form className='rounded-xl border border-secondary bg-primary-dark/80 p-5 sm:p-6' onSubmit={handleSubmit}>
                         <label className='contact-form-field block'>
                             <span className='text-sm font-medium text-primary-light'>Name or company name</span>
                             <input
                                 type='text'
                                 name='name'
+                                required
                                 className='mt-2 w-full rounded-lg border border-secondary bg-primary-dark px-4 py-3 text-sm text-primary-light outline-none transition-colors placeholder:text-primary-light/30 focus:border-accent focus:ring-2 focus:ring-accent/30'
                                 placeholder='Your name or company'
                             />
@@ -153,6 +207,7 @@ const ContactSection = () => {
                             <textarea
                                 name='message'
                                 rows={5}
+                                required
                                 className='mt-2 w-full resize-none rounded-lg border border-secondary bg-primary-dark px-4 py-3 text-sm text-primary-light outline-none transition-colors placeholder:text-primary-light/30 focus:border-accent focus:ring-2 focus:ring-accent/30'
                                 placeholder='Tell me about your idea, project or request'
                             />
@@ -163,17 +218,29 @@ const ContactSection = () => {
                             <input
                                 type='text'
                                 name='contact'
+                                required
                                 className='mt-2 w-full rounded-lg border border-secondary bg-primary-dark px-4 py-3 text-sm text-primary-light outline-none transition-colors placeholder:text-primary-light/30 focus:border-accent focus:ring-2 focus:ring-accent/30'
-                                placeholder='email@example.com or +1 000 000 0000'
+                                placeholder='email@example.com or +0 676 6767'
                             />
                         </label>
 
                         <button
                             type='submit'
-                            className='contact-submit mt-6 inline-flex w-full items-center justify-center rounded-lg bg-accent px-5 py-3 text-sm font-semibold text-primary-dark transition-colors hover:bg-accent-hover focus:outline-none focus:ring-2 focus:ring-accent/70 sm:w-auto'
+                            disabled={submitStatus === 'submitting'}
+                            className='contact-submit mt-6 inline-flex w-full items-center justify-center rounded-lg bg-accent px-5 py-3 text-sm font-semibold text-primary-dark transition-colors hover:bg-accent-hover focus:outline-none focus:ring-2 focus:ring-accent/70 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto'
                         >
-                            Send message
+                            {submitStatus === 'submitting' ? 'Sending...' : 'Send message'}
                         </button>
+
+                        {submitMessage && (
+                            <p
+                                className={`mt-4 text-sm ${submitStatus === 'success' ? 'text-accent' : 'text-red-300'}`}
+                                role='status'
+                                aria-live='polite'
+                            >
+                                {submitMessage}
+                            </p>
+                        )}
                     </form>
                 </div>
             </div>
