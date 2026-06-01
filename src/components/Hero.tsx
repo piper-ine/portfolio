@@ -44,7 +44,7 @@ const Hero = () => {
                     autoAlpha: 0,
                     x: 44,
                     scale: 0.96,
-                    filter: 'grayscale(1) blur(8px)',
+                    filter: 'blur(8px)',
                 },
                 '-=0.32',
             );
@@ -109,7 +109,7 @@ const Hero = () => {
                     <img
                         src='hero.jpg'
                         alt='N.E Developer portrait'
-                        className='hero-image relative block h-auto max-h-[min(30rem,52dvh)] w-full max-w-sm object-contain object-center grayscale drop-shadow-[0_0_42px_rgba(176,232,96,0.18)] sm:max-w-md lg:max-w-lg'
+                        className='hero-image relative block h-auto max-h-[min(30rem,52dvh)] w-full max-w-sm object-contain object-center drop-shadow-[0_0_14px_rgba(176,232,96,0.32)] drop-shadow-[0_0_46px_rgba(176,232,96,0.18)] transition-[filter] duration-500 hover:drop-shadow-[0_0_22px_rgba(176,232,96,0.45)] sm:max-w-md lg:max-w-lg'
                     />
                 </div>
             </div>
