@@ -35,9 +35,9 @@ const techGroups: TechGroup[] = [
         description: 'Interfaces, components, responsive layouts and smooth client experience.',
         Icon: HiCommandLine,
         items: [
-            { name: 'React ecosystem', Icon: SiReact, level: 88 },
-            { name: 'Next.js', Icon: SiNextdotjs, level: 78 },
-            { name: 'Tailwind CSS', Icon: SiTailwindcss, level: 90 },
+            { name: 'React ecosystem', Icon: SiReact, level: 35 },
+            { name: 'Next.js', Icon: SiNextdotjs, level: 40 },
+            { name: 'Tailwind CSS', Icon: SiTailwindcss, level: 60 },
         ],
     },
     {
@@ -45,10 +45,10 @@ const techGroups: TechGroup[] = [
         description: 'API logic, typed server code, database models and application structure.',
         Icon: HiServerStack,
         items: [
-            { name: 'Express', Icon: SiExpress, level: 76 },
-            { name: 'Node.js', Icon: SiNodedotjs, level: 80 },
-            { name: 'TypeScript', Icon: SiTypescript, level: 84 },
-            { name: 'Prisma', Icon: SiPrisma, level: 72 },
+            { name: 'Express', Icon: SiExpress, level: 30 },
+            { name: 'Node.js', Icon: SiNodedotjs, level: 10 },
+            { name: 'TypeScript', Icon: SiTypescript, level: 60 },
+            { name: 'Prisma', Icon: SiPrisma, level: 39 },
         ],
     },
     {
@@ -56,10 +56,10 @@ const techGroups: TechGroup[] = [
         description: 'Daily workflow tools for design, version control and faster development.',
         Icon: HiWrenchScrewdriver,
         items: [
-            { name: 'Git', Icon: SiGit, level: 82 },
+            { name: 'Git', Icon: SiGit, level: 70 },
             { name: 'AI tools', Icon: HiSparkles, level: 86 },
-            { name: 'Figma', Icon: SiFigma, level: 70 },
-            { name: 'Vercel', Icon: SiVercel, level: 50 },
+            { name: 'Figma', Icon: SiFigma, level: 50 },
+            { name: 'Vercel', Icon: SiVercel, level: 70 },
         ],
     },
 ];
